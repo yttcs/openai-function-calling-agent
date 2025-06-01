@@ -1,0 +1,64 @@
+<!-- inject home.html into layout.html -->
+{% include 'layout.html' %}
+
+<div class="container">
+   <h3>Type in the box below to chat</h3>
+
+    <!-- sends temperature and user input to backend -->
+    <form action="/chat" method="POST">
+      <div>
+
+        <br><label for="temperature">Temperature = <span id="amount"></span> </label>
+        <div class="card-header d-flex justify-content-between align-items-center" style="background-color: white;">
+        <input type="range" class="slider" id="temperature" name="temperature" min="0" max="2" step=".1" value="0"/>
+        <button class="btn btn-danger btn-sm" onclick="clearMemory()">Clear Memory </button>
+        </div> <!-- end of class="card-header..." -->
+
+        <textarea class="form-control" placeholder="Type here" name="user_input" rows="3" required></textarea>
+        <button class="btn btn-primary btn-sm" type="submit">Send Message</button>
+      </div>
+    </form>
+
+    <!-- displays the value for the temperature slider -->
+    <!-- also contains the two functions to clear the chat_log and chat_responses lists -->
+     <script>
+     var slider = document.getElementById("temperature");
+     var output = document.getElementById("amount");
+     output.innerHTML = slider.value;
+
+     slider.oninput = function() {
+     output.innerHTML = this.value;
+     }
+
+     function clearMemory() {
+     fetch('/clear_memory', { method: 'POST' }) .then(response => { if (response.ok) { console.log('Memory cleared successfully');
+     document.querySelector('.card-body').innerHTML = ''; } else { console.error('Failed to clear memory'); } }) .catch(error => { console.error('Error clearing memory:', error); });
+     }
+
+     function clearTemplate() {
+     fetch('/clear_template', { method: 'POST' }) .then(response => { if (response.ok) { console.log('Template cleared successfully');
+     document.querySelector('.card-body').innerHTML = ''; } else { console.error('Failed to clear memory'); } }) .catch(error => { console.error('Error clearing memory:', error); });
+     }
+     </script>
+
+    <div>
+      <div class="card">
+        <div class="card-header text-center mt-3">
+
+           <div style="text-align: right">
+             <button class="btn btn-primary btn-sm" onclick="clearTemplate()">Clear Chat Window </button>
+           </div>
+        </div> <!-- end of class="card-header" -->
+
+        <div class="card-body chat-history">
+          {% for response in chat_responses %}  <!-- iterate through responses in chat_responses -->
+          <div class="{{ 'chat-message user-input' if loop.index0 is even else 'chat-message bot-response'}}">
+            {{response}}                        <!-- print each response -->
+          </div>
+          {% endfor %}                          <!-- end for loop -->
+        </div> <!-- end of class="card-body" -->
+      </div> <!-- end of class="card text_center" -->
+         <a class="btn btn-primary btn-sm" type="button" href="/logout">Logout</a>
+    </div>
+
+</div> <!-- end of class="container" -->

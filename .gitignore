@@ -1,0 +1,3 @@
+venv
+.env
+aws_lambda_artifact.zip

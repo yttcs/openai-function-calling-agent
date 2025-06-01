@@ -1,0 +1,30 @@
+<!-- inject image.html into layout.html -->
+{% include 'layout.html' %}
+
+<div class="container at-5">
+   <h3>
+     Add input to generate an image (the more detail the better)
+   </h3>
+   <form action="/image" method="POST">
+     <div>
+        <textarea class="form-control" placeholder="Type here" name="user_input" rows="3" required></textarea>
+        <button class="btn btn-primary btn-sm" type="submit">Send image request</button>
+     </div>
+   </form>
+
+    <div>
+      <div class="card text-center mt-3">
+        <div class="card-header">
+            Image Generation
+        </div>
+
+        <div class="card-body">
+          <div>
+            <img src="{{image_url}}" alt="">
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+</div>

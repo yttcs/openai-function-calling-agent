@@ -1,0 +1,14 @@
+<!-- inject home.html into layout.html -->
+{% include 'layout.html' %}
+
+<div class="container at-5">
+
+      <form action="/submit" method="POST">
+         <h3>Enter User name</h3>
+         <p><input type='text' name='nam'/></p>
+         <h3>Enter Password</h3>
+         <p><input type='password' name='pwd'/></p>
+         <p><input type='submit' value='Login'/></p>
+      </form>
+
+</div>
