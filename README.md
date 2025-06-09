@@ -1,7 +1,7 @@
 ### An OpenAI function calling agent (as opposed to a ReAct agent) using the following: 
 
 1. Backend: FastAPI/SQL Model.
-2. Frontend: Jina2, Bootstrap, and fetch().
+2. Frontend: Jinja2, Bootstrap, and fetch().
 3. Security: Oauth2 with password flow using JWT bearer tokens and a remote MariaDB user identity database hosted on a DigitalOcean VPS.
 
 
